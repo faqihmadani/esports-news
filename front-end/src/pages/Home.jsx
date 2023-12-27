@@ -32,16 +32,27 @@ const Home = () => {
 
     return (
         <>
-            <img className='absolute -z-10 h-screen w-screen object-cover' src="./esports.jpg" alt="esports" />
-            <div className='absolute -z-10 h-screen w-full  bg-black bg-opacity-80' ></div>
+            <img className='absolute -z-10 h-screen w-screen object-cover max-h-[700px]' src="./esports.jpg" alt="esports" />
+            <div className='absolute -z-10 h-screen w-full  bg-black bg-opacity-80 max-h-[700px]' ></div>
             <div className='pt-24 md:pt-28'>
                 <div className='container mx-auto'>
-                    <div className='h-[600px] text-slate-100 flex flex-col items-center text-center'>
+                    <div className='h-[600px] text-slate-100 flex flex-col items-center text-center relative'>
                         <h1 className='text-5xl sm:text-6xl font-bold mt-16 sm:mt-20 md:mt-24'>Welcome to E-Sports News!</h1>
-                        <p className='mt-10 w-11/12 sm:w-9/12 md:w-1/2'>Immerse yourself in the latest and most in-depth world of E-Sports news. We are the go-to source for all the latest updates on games, tournaments, star players, and the hottest trends in the E-Sports universe. From gaming arenas to behind-the-scenes stories, we bring it all right to your fingertips.</p>
-                        <div className="down-arrow"></div>
+                        <p className='mt-10 text-xl md:text-2xl w-11/12 sm:w-9/12 md:w-1/2'>The E-Sports Hub for Fast, Fresh, and Furious Updates</p>
+                        <div className='absolute top-52 md:top-64 w-full h-20'>
+                            <div class="mouse_scroll">
+                                <div class="mouse">
+                                    <div class="wheel"></div>
+                                </div>
+                                <div>
+                                    <span class="m_scroll_arrows unu"></span>
+                                    <span class="m_scroll_arrows doi"></span>
+                                    <span class="m_scroll_arrows trei"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <h1 className='text-4xl font-bold mb-8'>Recent News 🔥</h1>
+                    <h1 className='text-4xl font-bold mb-8'>Recent News</h1>
                     <div className='grid gap-x-10 gap-y-10 sm:gap-y-14 sm:gap-x-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 pb-40'>
                         {
                             posts.map((post) => (

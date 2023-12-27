@@ -8,7 +8,9 @@ function Navbar() {
         <nav className='py-5 bg-red-900 w-full fixed z-40'>
             <div className='container mx-auto flex flex-col lg:flex-row justify-between items-center'>
                 <div className='flex justify-between items-center w-full lg:w-auto'>
-                    <h1 className='font-bold text-2xl text-slate-100'>E-SPORTS NEWS</h1>
+                    <Link to={"/"}>
+                        <h1 className='font-bold text-2xl text-slate-100'>E-SPORTS NEWS</h1>
+                    </Link>
                     {!menuIsOpen && <button className=' lg:hidden text-slate-100' onClick={() => setMenuIsOpen(true)}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
