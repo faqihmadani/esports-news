@@ -61,7 +61,7 @@ function Navbar() {
                                 Madani
                             </div>
                         </Link>
-                        <Link>
+                        <Link to={"/write"}>
                             <div className='py-1 px-2 rounded font-medium hover:bg-red-700 transition-colors duration-100'>
                                 Write
                             </div>
@@ -113,7 +113,7 @@ function Navbar() {
                             Madani
                         </div>
                     </Link>
-                    <Link>
+                    <Link to={"/write"}>
                         <div className='py-1 px-2 rounded font-medium hover:bg-red-700 transition-colors duration-100'>
                             Write
                         </div>
