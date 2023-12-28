@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const Register = () => {
     return (
@@ -7,9 +8,9 @@ const Register = () => {
             <h1 className='text-3xl font-bold mb-3 text-slate-100'>Register</h1>
             <form className='flex flex-col items-center p-8 rounded bg-slate-100'>
                 <div className='flex flex-col items-center gap-2 relative'>
-                    <input required className="w-72 px-3 py-2 rounded border-gray-300 border-[2px]" type="text" placeholder='username' />
-                    <input required className="w-72 px-3 py-2 rounded border-gray-300 border-[2px]" type="email" placeholder='email' />
-                    <input required className="w-72 px-3 py-2 rounded border-gray-300 border-[2px]" type="password" placeholder='password' />
+                    <input required className="w-72 px-3 py-2 rounded border-gray-300 border-[2px]" name='username' type="text" placeholder='username' />
+                    <input required className="w-72 px-3 py-2 rounded border-gray-300 border-[2px]" name='email' type="email" placeholder='email' />
+                    <input required className="w-72 px-3 py-2 rounded border-gray-300 border-[2px]" name='password' type="password" placeholder='password' />
                     <p className='text-sm text-red-500 w-full absolute -bottom-7'>Error Massage</p>
                 </div>
                 <button className="w-full bg-red-800 rounded p-2 font-medium text-slate-200 mt-12" type="submit">Submit</button>
