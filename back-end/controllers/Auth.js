@@ -1,5 +1,6 @@
 import { db } from "../db.js"
 import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
 
 export const Register = (req, res) => {
     // Mengecek apakah user telah ada
@@ -29,8 +30,27 @@ export const Register = (req, res) => {
     })
 }
 
-export const Login = () => {
+export const Login = (req, res) => {
+    const q = "SELECT * FROM USERS WHERE username = ?"
 
+    db.query(q, [req.body.username], (err, data) => {
+        if (err) return res.json(err)
+        if (data.length === 0) return res.status(404).json("User Not Found")
+
+        // Check kebenaran password
+        if (!bcrypt.compareSync(req.body.password, data[0].password)) {
+            return res.status(401).json("Wrong Password")
+        }
+
+        // membuat jsonwebtoken
+        const token = jwt.sign({ id: data[0].id }, "kuncijwt")
+
+        const { password, ...other } = data[0]
+
+        res.cookie("acces_token", token, {
+            httpOnly: true
+        }).status(200).json(other)
+    })
 }
 
 export const Logout = () => {
