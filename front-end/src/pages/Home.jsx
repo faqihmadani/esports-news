@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import axios from "axios"
 
 const Home = () => {
     const posts = [
@@ -28,7 +29,6 @@ const Home = () => {
             img: "/bg.png"
         },
     ]
-
 
     return (
         <>
@@ -60,7 +60,7 @@ const Home = () => {
                                     <img className='object-cover h-48 w-full rounded' src={post.img} alt={post.title} />
                                     <h1 className='text-2xl font-bold'>{post.title}</h1>
                                     <p>{post.desc}</p>
-                                    <div className='flex justify-end'>
+                                    <div className='flex mt-3'>
                                         <Link to={`/post/${post.id}`}>
                                             <p className='bg-red-900 text-slate-100 font-medium p-2 rounded inline-block'>Read More</p>
                                         </Link>

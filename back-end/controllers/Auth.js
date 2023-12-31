@@ -47,12 +47,18 @@ export const Login = (req, res) => {
 
         const { password, ...other } = data[0]
 
-        res.cookie("acces_token", token, {
-            httpOnly: true
+        res.cookie("access_token", token, {
+            httpOnly: true,
+            sameSite: "none",
+            secure: true,
+            // expires: new Date(Date.now() + 900000),
         }).status(200).json(other)
     })
 }
 
-export const Logout = () => {
-
+export const Logout = (req, res) => {
+    res.clearCookie("access_token", {
+        sameSite: "none",
+        secure: true
+    }).status(200).json("User has been logged out")
 }

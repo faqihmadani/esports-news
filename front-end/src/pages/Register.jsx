@@ -23,7 +23,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            await axios.post("http://localhost:8800/api/auth/register", data)
+            await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/register`, data)
             navigate("/login")
         } catch (err) {
             setErr(err.response.data)
