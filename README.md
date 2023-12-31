@@ -1,8 +1,84 @@
-# Esports News Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# E-Sports News
 
-Currently, two official plugins are available:
+News website for an e-sports update
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+## Features
+
+- SignUp
+- Login
+- Create Post
+- Update Post
+- Delete Post
+
+## Installation
+
+There are two folders provided for back-end and front-end website.
+
+First, clone this repository 
+
+```bash
+  git clone https://github.com/faqihmadani/esports-news.git my-project
+  cd my-project
+```
+
+### Front End
+1. Go to front-end folder
+```bash
+  cd /front-end
+```
+
+
+2. Install package using npm
+
+```bash
+  npm install
+```
+
+3. Create .env file
+Add the following environment variables to your .env file
+
+API_KEY
+
+ANOTHER_API_KEY
+
+4. Run development server
+```bash
+  npm run dev
+```
+
+### Back End
+1. Go to back-end folder
+```bash
+  cd /back-end
+```
+
+
+2. Install package using npm
+
+```bash
+  npm install
+```
+
+3. Create .env file
+Add the following environment variables to your .env file
+
+API_KEY
+
+ANOTHER_API_KEY
+
+4. Run development server
+```bash
+  npm start
+```
+## Usage/Examples
+
+```javascript
+import Component from 'my-project'
+
+function App() {
+  return <Component />
+}
+```
+
