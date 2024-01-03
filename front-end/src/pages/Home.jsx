@@ -1,34 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from "axios"
 
 const Home = () => {
-    const posts = [
-        {
-            id: 1,
-            title: "faqih",
-            desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum, quas!",
-            img: "/bg.png"
-        },
-        {
-            id: 2,
-            title: "faqih madani",
-            desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum, quas!",
-            img: "/bg.png"
-        },
-        {
-            id: 3,
-            title: "faqih 3",
-            desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum, quas!",
-            img: "/bg.png"
-        },
-        {
-            id: 4,
-            title: "mantap",
-            desc: "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolorum, quas!",
-            img: "/bg.png"
-        },
-    ]
+    const [posts, setPosts] = useState([])
+
+    useEffect(() => {
+        const fetchingData = async () => {
+            try {
+                const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/posts/`)
+
+                setPosts(res.data)
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchingData()
+    }, [])
 
     return (
         <>
