@@ -54,6 +54,7 @@ export const Login = (req, res) => {
             // expires: new Date(Date.now() + 900000),
         }).status(200).json(other)
     })
+    console.log("Token : " + req.cookies.access_token);
 }
 
 export const Logout = (req, res) => {

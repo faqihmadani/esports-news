@@ -1,22 +1,30 @@
 import { db } from "../db.js"
+import jwt from "jsonwebtoken"
 
 export const getAllPosts = (req, res) => {
-    if (req.query.category) {
-        const cat = req.query.category
-        const q = "SELECT * FROM posts WHERE category = ?"
+    const category = req.query.category || ""
+    const limit = parseInt(req.query.limit) || 10
+    const page = req.query.page || 1
 
-        db.query(q, [cat], (err, data) => {
-            if (err) return res.status(500).json("Error")
-            if (data.length < 1) return res.status(404).json("Category is not available")
+    const offset = (page - 1) * limit
+
+    let q = "SELECT * FROM posts "
+
+    if (category) {
+        q += "WHERE category = ? LIMIT ? OFFSET ?"
+
+        db.query(q, [category, limit, offset], (err, data) => {
+            if (err) return res.status(500).json(err)
+            if (data.length < 1) return res.status(404).json("Category Is Not Available")
 
             return res.status(200).json(data)
         })
-    } else {
-        const q = "SELECT * FROM posts"
 
-        db.query(q, [], (err, data) => {
+    } else {
+        q += "LIMIT ? OFFSET ? "
+        db.query(q, [limit, offset], (err, data) => {
             if (err) return res.status(500).json(err)
-            if (data.length < 1) return res.status(404).json("Posts not found")
+            if (data.length < 1) return res.status(404).json("No Post Available")
 
             return res.status(200).json(data)
         })
@@ -24,9 +32,9 @@ export const getAllPosts = (req, res) => {
 }
 
 export const getPostById = (req, res) => {
-    const q = "SELECT * FROM posts WHERE uid = ?"
+    const q = "SELECT u.username, p.* FROM `posts` p JOIN `users` u ON u.id = p.uid WHERE p.id = ?"
 
-    db.query(q, [req.params.id], (err, data) => {
+    db.query(q, [parseInt(req.params.id)], (err, data) => {
         if (err) return res.status(500).json(err)
         if (data.length < 1) return res.status(404).json("Post not found")
 
@@ -61,12 +69,28 @@ export const publishPost = (req, res) => {
 }
 
 export const deletePost = (req, res) => {
-    const q = "DELETE FROM posts WHERE id = ?"
+    const token = req.cookies.access_token
+    // console.log(req.cookies.access_token);
 
-    db.query(q, [req.body.id], (err, data) => {
-        if (err) return res.status(500).json(err)
+    if (!token) { return res.status(401).json("Not Authenticated ") }
 
-        return res.status(200).json("Post has been deleted")
+    jwt.verify(token, "kuncijwt", (err, data) => {
+        if (err) return res.status(403).json("Token is not valid!")
+
+        const q = "DELETE FROM posts WHERE id = ? AND uid = ?"
+
+        db.query(q, [req.params.id, data.id], (err, data) => {
+            if (err) return res.status(500).json(err)
+
+            if (data.affectedRows > 0) {
+                return res.status(200).json("Post has been deleted");
+            } else {
+                // Jika tidak ada baris yang terpengaruh (tidak ada data yang cocok)
+                return res.status(404).json({ error: "Post not found or id does not match" });
+            }
+
+            // return res.status(200).json("Post has been deleted")
+        })
     })
 }
 

@@ -8,7 +8,7 @@ const Home = () => {
     useEffect(() => {
         const fetchingData = async () => {
             try {
-                const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/posts/`)
+                const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/posts`)
 
                 setPosts(res.data)
             } catch (error) {

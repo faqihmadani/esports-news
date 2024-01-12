@@ -1,8 +1,10 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 
+
 // Membuat Context
 export const AuthContext = createContext()
+
 
 export const AuthContextProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(
@@ -18,8 +20,9 @@ export const AuthContextProvider = ({ children }) => {
     }
 
     const logout = async () => {
-        await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/logout`)
+        const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/logout`)
 
+        console.log(res.data);
         setCurrentUser(null)
     }
 
