@@ -67,12 +67,15 @@ function Navbar() {
                                         {currentUser.username}
                                     </div>
                                 </Link>
-                                <Link to={"/write"}>
+                                <Link to={"/write"} onClick={() => setMenuIsOpen(false)}>
                                     <div className='py-1 px-2 rounded font-medium hover:bg-red-700 transition-colors duration-100'>
                                         Write
                                     </div>
                                 </Link>
-                                <button onClick={logout} className='py-1 px-2 rounded font-medium hover:bg-red-700 transition-colors duration-100'>
+                                <button onClick={() => {
+                                    logout()
+                                    setMenuIsOpen(false)
+                                }} className='py-1 px-2 rounded font-medium hover:bg-red-700 transition-colors duration-100'>
                                     Log Out
                                 </button>
                             </div>

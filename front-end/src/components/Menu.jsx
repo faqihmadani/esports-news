@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const Menu = ({ cat }) => {
     const [rec, setRec] = useState([])
@@ -24,10 +25,10 @@ const Menu = ({ cat }) => {
             <h1 className='text-lg font-semibold mb-5'>Other news you may like</h1>
             <div className='grid min-[400px]:grid-cols-2 md:grid-cols-1 gap-10 min-[400px]:gap-5 lg:gap-10'>
                 {rec && rec.map(post => (
-                    <div key={post.id} className='cursor-pointer hover:underline'>
+                    <Link to={`/post/${post.id}`} key={post.id} className='cursor-pointer hover:underline'>
                         <img className='rounded h-42 w-full object-cover' src={post.img} alt={post.title} />
                         <h1 className='text-xl mt-2 font-bold line-clamp-2'>{post.title}</h1>
-                    </div>
+                    </Link>
                 ))}
             </div>
 

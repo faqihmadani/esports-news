@@ -61,53 +61,50 @@ export const publishPost = (req, res) => {
     // Format datetime sesuai dengan format MySQL (YYYY-MM-DD HH:MM:SS)
     let mysqlDatetime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 
-    db.query(q, [req.body.title, req.body.description, req.body.category, mysqlDatetime, req.body.uid], (err, data) => {
+    db.query(q, [req.body.title, req.body.description, req.body.category, mysqlDatetime, req.data.id], (err, data) => {
         if (err) return res.status(500).json(err)
 
-        return res.status(200).json("Post has been published")
+        return res.status(200).json({ msg: "Post has been published", id: data.insertId })
     })
 }
 
 export const deletePost = (req, res) => {
-    const token = req.cookies.access_token
-    // console.log(req.cookies.access_token);
+    const q = "DELETE FROM posts WHERE id = ? AND uid = ?"
 
-    if (!token) { return res.status(401).json("Not Authenticated ") }
+    db.query(q, [req.params.id, req.data.id], (err, data) => {
+        if (err) return res.status(500).json(err)
 
-    jwt.verify(token, "kuncijwt", (err, data) => {
-        if (err) return res.status(403).json("Token is not valid!")
-
-        const q = "DELETE FROM posts WHERE id = ? AND uid = ?"
-
-        db.query(q, [req.params.id, data.id], (err, data) => {
-            if (err) return res.status(500).json(err)
-
-            if (data.affectedRows > 0) {
-                return res.status(200).json("Post has been deleted");
-            } else {
-                // Jika tidak ada baris yang terpengaruh (tidak ada data yang cocok)
-                return res.status(404).json({ error: "Post not found or id does not match" });
-            }
-
-            // return res.status(200).json("Post has been deleted")
-        })
+        if (data.affectedRows > 0) {
+            return res.status(200).json("Post has been deleted");
+        } else {
+            // Jika tidak ada baris yang terpengaruh (tidak ada data yang cocok)
+            return res.status(404).json({ error: "Post not found or id does not match" });
+        }
     })
 }
 
 export const updatePost = (req, res) => {
     const q = "UPDATE posts SET title = ?, description = ?, category = ?, date = ? WHERE id = ?"
 
-    const date = new Date()
+    // Mendapatkan objek Date yang merepresentasikan waktu saat ini
+    let currentTime = new Date();
 
-    let day = date.getDate()
-    let month = date.getMonth() + 1
-    let year = date.getFullYear()
+    // Mendapatkan informasi tahun, bulan, dan hari
+    let year = currentTime.getFullYear();
+    let month = (currentTime.getMonth() + 1).toString().padStart(2, '0'); // Tambah 1 karena bulan dimulai dari 0
+    let day = currentTime.getDate().toString().padStart(2, '0');
 
-    let currentDate = `${day} - ${month} - ${year}`
+    // Mendapatkan informasi jam, menit, dan detik
+    let hours = currentTime.getHours().toString().padStart(2, '0');
+    let minutes = currentTime.getMinutes().toString().padStart(2, '0');
+    let seconds = currentTime.getSeconds().toString().padStart(2, '0');
 
-    db.query(q, [req.body.title, req.body.description, req.body.category, currentDate], (err, data) => {
+    // Format datetime sesuai dengan format MySQL (YYYY-MM-DD HH:MM:SS)
+    let mysqlDatetime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+    db.query(q, [req.body.title, req.body.description, req.body.category, mysqlDatetime, req.params.id], (err, data) => {
         if (err) return res.status(500).json(err)
 
-        return res.status(200).json("Post has beedn updated")
+        return res.status(200).json("Post has been updated")
     })
 }
