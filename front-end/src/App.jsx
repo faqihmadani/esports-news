@@ -11,6 +11,7 @@ import Write from "./pages/Write";
 import Login from "./pages/Login";
 
 import Layout from "./components/Layout";
+import Category from "./pages/Category";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "/post/:id",
         element: <Single />
+      },
+      {
+        path: "/category/:game",
+        element: <Category />
       },
     ]
   },

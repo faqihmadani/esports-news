@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import axios from "axios"
 
 const Home = () => {
@@ -45,7 +45,7 @@ const Home = () => {
                         {
                             posts.map((post) => (
                                 <div className='grid gap-2' key={post.id}>
-                                    <img className='object-cover h-48 w-full rounded' src={post.img} alt={post.title} />
+                                    <img className='object-cover h-48 w-full rounded' src={`https://mjyonzcfwgauldobukqn.supabase.co/storage/v1/object/public/post-images/${post.img}`} alt={post.title} />
                                     <h1 className='text-2xl font-bold'>{post.title}</h1>
                                     <p>{post.desc}</p>
                                     <div className='flex mt-3'>
