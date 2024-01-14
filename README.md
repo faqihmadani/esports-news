@@ -79,9 +79,11 @@ First, clone this repository
 4. Create .env file
 Add the following environment variables to your .env file
 
-VITE_BASE_URL  
-VITE_SUPABASE_URL  
-VITE_SUPABASE_KEY  
+```env
+VITE_BASE_URL = your_backend_base_url
+VITE_SUPABASE_URL = your_supabase_url
+VITE_SUPABASE_KEY = your_supabase_key
+```
 
 5. Run development server
 ```bash
