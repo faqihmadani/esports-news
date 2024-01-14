@@ -5,20 +5,46 @@ import 'react-quill/dist/quill.snow.css';
 import { AuthContext } from '../context/AuthContext.jsx'
 import toast from 'react-hot-toast';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { createClient } from '@supabase/supabase-js'
+import { v4 as uuidv4 } from 'uuid';
+
 
 const Write = () => {
     const state = useLocation().state
 
     const navigate = useNavigate()
 
+    // Create a single supabase client for interacting with your database
+    const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_KEY)
+
     const [title, setTitle] = useState(state?.title || '');
     const [description, setDescription] = useState(state?.description || '');
     const [category, setCategory] = useState(state?.category || '');
+    const [image, setImage] = useState(null)
 
     const { currentUser } = useContext(AuthContext)
 
+    const uuid = uuidv4()
+
+    const uploadImage = async () => {
+        const fileName = uuid
+        const { data, error } = await supabase
+            .storage
+            .from('post-images')
+            .upload(fileName, image)
+        if (data) {
+            console.log("file uploaded");
+        } else {
+            console.log(error);
+        }
+
+        return fileName
+    }
+
     const handlePublish = async (e) => {
         e.preventDefault()
+
+        const fileName = uploadImage()
 
         try {
             const res = state ?
@@ -32,12 +58,14 @@ const Write = () => {
                     title: title,
                     description: description,
                     category: category,
+                    img: uuid
                 }, {
                     withCredentials: true
                 })
 
             state ? toast.success("Post has been updated!") : toast.success("Post has been published!")
             state ? navigate(`/post/${state.id}`) : navigate(`/post/${res.data.id}`)
+            console.log(fileName);
         } catch (error) {
             console.log(error);
         }
@@ -104,9 +132,8 @@ const Write = () => {
                             <h1>Show</h1>
                         </div> */}
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
-                        <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" />
+                        <input onChange={(e) => setImage(e.target.files[0])} name='post-image' className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file" />
                         <div className='mt-5 flex justify-between items-center'>
-                            {/* <button className='border-[1px] border-green-700 py-2 px-3' >Save as Draft</button> */}
                             <button onClick={handlePublish} className='border-[1px] border-green-700 bg-green-700 text-slate-100 py-2 px-4'>{state ? "Update" : "Publish"}</button>
                         </div>
 

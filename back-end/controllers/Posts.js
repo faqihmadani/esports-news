@@ -43,7 +43,7 @@ export const getPostById = (req, res) => {
 }
 
 export const publishPost = (req, res) => {
-    const q = "INSERT INTO posts (title, description, category, date, uid) VALUES (?, ?, ?, ?, ?)"
+    const q = "INSERT INTO posts (title, description, category, img, date, uid) VALUES (?, ?, ?, ?, ?, ?)"
 
     // Mendapatkan objek Date yang merepresentasikan waktu saat ini
     let currentTime = new Date();
@@ -61,7 +61,7 @@ export const publishPost = (req, res) => {
     // Format datetime sesuai dengan format MySQL (YYYY-MM-DD HH:MM:SS)
     let mysqlDatetime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 
-    db.query(q, [req.body.title, req.body.description, req.body.category, mysqlDatetime, req.data.id], (err, data) => {
+    db.query(q, [req.body.title, req.body.description, req.body.category, req.body.img, mysqlDatetime, req.data.id], (err, data) => {
         if (err) return res.status(500).json(err)
 
         return res.status(200).json({ msg: "Post has been published", id: data.insertId })
