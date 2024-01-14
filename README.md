@@ -76,14 +76,14 @@ First, clone this repository
 
 3. Create supase storage for store images. The storage must be named "post-images"
 
-3. Create .env file
+4. Create .env file
 Add the following environment variables to your .env file
 
-VITE_BASE_URL
-VITE_SUPABASE_URL
-VITE_SUPABASE_KEY
+VITE_BASE_URL  
+VITE_SUPABASE_URL  
+VITE_SUPABASE_KEY  
 
-4. Run development server
+5. Run development server
 ```bash
   npm run dev
 ```
