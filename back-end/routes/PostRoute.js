@@ -8,6 +8,6 @@ router.get("/", getAllPosts)
 router.get("/:id", getPostById)
 router.post("/", authMiddleware, publishPost)
 router.delete("/delete/:id", authMiddleware, deletePost)
-router.put("/update/:id", updatePost)
+router.put("/update/:id", authMiddleware, updatePost)
 
 export default router

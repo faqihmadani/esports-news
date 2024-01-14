@@ -84,7 +84,7 @@ export const deletePost = (req, res) => {
 }
 
 export const updatePost = (req, res) => {
-    const q = "UPDATE posts SET title = ?, description = ?, category = ?, date = ? WHERE id = ?"
+    const q = "UPDATE posts SET title = ?, description = ?, category = ?, img = ?, date = ? WHERE id = ?"
 
     // Mendapatkan objek Date yang merepresentasikan waktu saat ini
     let currentTime = new Date();
@@ -102,7 +102,7 @@ export const updatePost = (req, res) => {
     // Format datetime sesuai dengan format MySQL (YYYY-MM-DD HH:MM:SS)
     let mysqlDatetime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 
-    db.query(q, [req.body.title, req.body.description, req.body.category, mysqlDatetime, req.params.id], (err, data) => {
+    db.query(q, [req.body.title, req.body.description, req.body.category, req.body.img, mysqlDatetime, req.params.id], (err, data) => {
         if (err) return res.status(500).json(err)
 
         return res.status(200).json("Post has been updated")

@@ -28,23 +28,44 @@ const Write = () => {
 
     const uploadImage = async () => {
         const fileName = uuid
-        const { data, error } = await supabase
-            .storage
-            .from('post-images')
-            .upload(fileName, image)
-        if (data) {
-            console.log("file uploaded");
-        } else {
-            console.log(error);
+        if (image) {
+            const { data, error } = await supabase
+                .storage
+                .from('post-images')
+                .upload(fileName, image, {
+                    cacheControl: '10',
+                })
+            if (data) {
+                console.log("file uploaded");
+            } else {
+                console.log(error);
+            }
         }
 
         return fileName
     }
 
+    const updateImage = async () => {
+        if (image) {
+            const { data, error } = await supabase
+                .storage
+                .from('post-images')
+                .update(state.img, image, {
+                    cacheControl: 10,
+                    upsert: true
+                })
+            if (data) {
+                console.log({ ...data, img: state.img });
+            } else {
+                console.log(error);
+            }
+        }
+    }
+
     const handlePublish = async (e) => {
         e.preventDefault()
 
-        const fileName = uploadImage()
+        const fileName = state ? updateImage() : uploadImage()
 
         try {
             const res = state ?
@@ -52,6 +73,9 @@ const Write = () => {
                     title: title,
                     description: description,
                     category: category,
+                    img: state.img
+                }, {
+                    withCredentials: true
                 })
                 :
                 await axios.post(`${import.meta.env.VITE_BASE_URL}/posts`, {
