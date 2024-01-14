@@ -101,7 +101,13 @@ const Write = () => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, [])
+
+        if (!currentUser) {
+            navigate("/login")
+        }
+
+
+    }, [currentUser])
 
     return (
         <>
