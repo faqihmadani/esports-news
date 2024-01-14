@@ -74,7 +74,7 @@ First, clone this repository
   npm install
 ```
 
-3. Create supase storage for store images. The storage must be named "post-images"
+3. Create supabase storage for store images. The storage must be named `post-images`
 
 4. Create .env file
 Add the following environment variables to your .env file
