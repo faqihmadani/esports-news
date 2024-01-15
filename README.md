@@ -3,7 +3,7 @@
 
 News website for an e-sports update
 
-![Screenshot Website](Dokumentasi%20Esports%20New%209e27206bdc22488cbdbb12e8f2c553fc/Untitled.png)
+![image](https://github.com/faqihmadani/esports-news/assets/76164968/f11abb74-bfc3-4966-a8ef-f35e98e8d5ec)
 
 ## Tech Stack
 
