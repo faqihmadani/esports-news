@@ -3,6 +3,13 @@
 
 News website for an e-sports update
 
+![Screenshot Website](Dokumentasi%20Esports%20New%209e27206bdc22488cbdbb12e8f2c553fc/Untitled.png)
+
+## Tech Stack
+
+- React JS
+- Express JS
+- Tailwind CSS
 
 ## Features
 
