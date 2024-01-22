@@ -31,7 +31,7 @@ First, clone this repository
 ```
 
 ### Back End
-1. Go to front-end folder
+1. Go to back-end folder
 
 ```bash
   cd /back-end
